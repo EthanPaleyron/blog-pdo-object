@@ -20,7 +20,7 @@
             <ul>
                 <li><a href="sign-in">S'inscrire</a></li>
                 <li><a href="login">Connexion</a></li>
-                <li><a href="logout">Deconnexion</a></li>
+                <li><a href="../logout">Deconnexion</a></li>
             </ul>
         </nav>
     </header>
@@ -30,9 +30,9 @@
 
     <div class="articles">
         <?php
+        // date_default_timezone_set('Europe/Paris');
         include_once("../connexion-base.php");
         include_once("../objects/blog.class.php");
-        date_default_timezone_set('Europe/Paris');
         $array = $blogManager->displayingBlogs();
         foreach ($array as $value) {
             $date = new DateTime($value->getDatetime());
@@ -40,8 +40,14 @@
             <h2>' . $value->getTitle() . '</h2>
             <time datetime="' . $date->format("d-m-Y H:i:s") . '">' . $date->format("d-m-Y H:i:s") . '</time>
             <img src="../files/' . $value->getFile() . '" alt="' . $value->getFile() . '">
-            <p>' . $value->getComment() . '</p>
-        </article>';
+            <p>' . $value->getComment() . '</p>';
+            if (isset($_SESSION["id"])) {
+                if ($_SESSION["id"] == $value->getLabelUser()) {
+                    echo '<a href="../delete.php?id=' . $value->getId() . '&file=' . $value->getFile() . '">Supprimer</a>
+                    <a href=change.php?id=' . $value->getId() . '&file=' . $value->getFile() . '">Modifier</a>';
+                }
+            }
+            echo '</article>';
         }
         ?>
     </div>

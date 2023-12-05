@@ -1,5 +1,5 @@
 <?php
-session_start();
-session_unset();
-header("Location: http://localhost/TodoList_2023/public/pages/index.php");
+include_once("objects/user.class.php");
+include_once("connexion-base.php");
+$userManager->logout();
 ?>

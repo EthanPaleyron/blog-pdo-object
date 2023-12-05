@@ -2,6 +2,7 @@
 class Blog
 {
     private int $id;
+    private int $labelUser;
     private string $title;
     private $datetime;
     private string $file;
@@ -14,6 +15,14 @@ class Blog
     public function getId(): int
     {
         return $this->id;
+    }
+    public function setLabelUser($labelUser): void
+    {
+        $this->labelUser = $labelUser;
+    }
+    public function getLabelUser(): int
+    {
+        return $this->labelUser;
     }
     public function setTitle($title): void
     {
