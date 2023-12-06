@@ -12,7 +12,6 @@
 <body>
     <?php
     session_start();
-    var_dump($_SESSION);
     ?>
     <header>
         <nav>
@@ -30,7 +29,6 @@
 
     <div class="articles">
         <?php
-        // date_default_timezone_set('Europe/Paris');
         include_once("../connexion-base.php");
         include_once("../objects/blog.class.php");
         $array = $blogManager->displayingBlogs();

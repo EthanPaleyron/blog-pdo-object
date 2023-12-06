@@ -17,28 +17,12 @@
     </header>
     <h2>Connexion</h2>
 
-    <form action="login.php" method="post" enctype="multipart/form-data">
+    <form action="../verif-login.php" method="post" enctype="multipart/form-data">
         <input type="text" name="user_name" placeholder="Ton nom d'utilisateur" autocomplete="off">
         <input id="password" type="password" name="password" placeholder="Ton mot de passe">
         <button id="eye" type="button"><i class="fa-solid fa-eye-slash"></i></button>
         <input type="submit" value="Connexion">
     </form>
-    <?php
-    session_start();
-    var_dump($_SESSION);
-    if (isset($_POST["user_name"]) && isset($_POST["password"])) {
-        try {
-            include_once("../objects/user.class.php");
-            include_once("../connexion-base.php");
-            $user = new User();
-            $user->setUsername(htmlspecialchars($_POST["user_name"]));
-            $user->setPassword($_POST["password"]);
-            $userManager->login($user);
-        } catch (Exception $e) {
-            throw new InvalidArgumentException($e->getMessage());
-        }
-    }
-    ?>
 
     <script type="module" src="../JS/main.js"></script>
 </body>

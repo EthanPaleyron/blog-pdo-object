@@ -13,7 +13,6 @@ class Blog_manager
         $statement = $this->base->prepare($sql);
         $statement->execute(array("label_user" => $blog->getLabelUser(), "title" => $blog->getTitle(), "datetime" => $blog->getDatetime(), "file" => $blog->getFile(), "comment" => $blog->getComment()));
         $statement->closeCursor();
-        header("Location: http://localhost/blog-pdo-object/pages/index.php");
     }
     public function delete($blog)
     {
@@ -21,7 +20,13 @@ class Blog_manager
         $resultat = $this->base->prepare($sql);
         $resultat->execute(array("id" => $blog->getId(), "user_id" => $_SESSION["id"]));
         $resultat->closeCursor();
-
+    }
+    public function update($blog)
+    {
+        $sql = "UPDATE `articles` SET TITLE_BLOG = :title, DATETIME_BLOG = :datetime, IMAGE_BLOG = :file, DESCRIPTION_BLOG = :comment WHERE ID_BLOG = :id_article";
+        $statement = $this->base->prepare($sql);
+        $statement->execute(array("id_article" => $blog->getId(), "title" => $blog->getTitle(), "datetime" => date("Y-m-d H:i:s"), "file" => $blog->getFile(), "comment" => $blog->getComment()));
+        $statement->closeCursor();
     }
     public function displayingBlogs()
     {
@@ -46,6 +51,7 @@ class Blog_manager
         $result = $this->base->prepare($sql);
         $result->execute(array("id_blog" => $blog->getId()));
         $e = $result->fetch();
+        $blog->setId($e["ID_BLOG"]);
         $blog->setTitle($e["TITLE_BLOG"]);
         $blog->setFile($e["IMAGE_BLOG"]);
         $blog->setComment($e["DESCRIPTION_BLOG"]);
