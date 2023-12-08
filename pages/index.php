@@ -10,22 +10,34 @@
 </head>
 
 <body>
-    <?php
-    session_start();
-    ?>
     <header>
         <nav>
             <h1>MyBlog</h1>
             <ul>
-                <li><a href="sign-in">S'inscrire</a></li>
-                <li><a href="login">Connexion</a></li>
-                <li><a href="../logout">Deconnexion</a></li>
+                <?php
+                session_start();
+                if (!isset($_SESSION["id"])) {
+                    echo "<li><a href='sign-in'>S'inscrire</a></li>
+                    <li><a href='login'>Connexion</a></li>";
+                } else {
+                    echo '<li><a href="../logout">Deconnexion</a></li>';
+                }
+                ?>
             </ul>
+            <?php
+            if (isset($_SESSION["id"])) {
+                echo '<p>Connecter en tant que ' . $_SESSION["user_name"] . '</p>';
+            }
+            ?>
         </nav>
     </header>
     <h2>Les Blogs</h2>
 
-    <a href="insertion.php">Inserer un nouveau blog</a>
+    <?php
+    if (isset($_SESSION["id"])) {
+        echo '<a href="insertion.php">Inserer un nouveau blog</a>';
+    }
+    ?>
 
     <div class="articles">
         <?php

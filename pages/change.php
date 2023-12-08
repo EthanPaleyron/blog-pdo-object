@@ -1,3 +1,9 @@
+<?php
+session_start();
+if ($_SESSION["id"] != $_GET["id"]) {
+    header("Location: http://localhost/blog-pdo-object/pages/index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +18,6 @@
 <body>
 
     <?php
-    session_start();
     try {
         include_once("../objects/blog.class.php");
         include_once("../connexion-base.php");

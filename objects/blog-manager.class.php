@@ -57,5 +57,12 @@ class Blog_manager
         $blog->setComment($e["DESCRIPTION_BLOG"]);
         $result->closeCursor();
     }
+    public function verifUser($verifBlog)
+    {
+        $sql = "SELECT LABEL_UTILISATEUR FROM `articles` WHERE ID_BLOG = " . $verifBlog->getId();
+        $result = $this->base->query($sql);
+        $e = $result->fetch();
+        $verifBlog->setLabelUser($e["LABEL_UTILISATEUR"]);
+    }
 }
 ?>

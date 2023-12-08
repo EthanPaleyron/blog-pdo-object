@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION["id"])) {
+    header("Location: http://localhost/blog-pdo-object/pages/index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
